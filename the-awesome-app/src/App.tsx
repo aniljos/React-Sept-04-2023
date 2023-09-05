@@ -4,6 +4,7 @@ import './App.css';
 import Hello from './components/Hello';
 import Counter from './components/Counter';
 import FnCounter from './components/FnCounter';
+import ListProducts from './components/ListProducts';
 
 function App() {
   return (
@@ -16,10 +17,12 @@ function App() {
           {/* <Hello message="Hello React"/>
           <Hello message="Welcome React"/>
           <Counter initValue={10}/> */}
-          <Counter initValue={15}/>
+          {/* <Counter initValue={15}/>
 
           <FnCounter initValue={5}/>
-          <FnCounter />
+          <FnCounter /> */}
+
+          <ListProducts/>
  
       </section>
     </div>
