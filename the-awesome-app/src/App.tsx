@@ -6,34 +6,49 @@ import Counter from './components/Counter';
 import FnCounter from './components/FnCounter';
 import ListProducts from './components/ListProducts';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import EditProduct from './components/EditProduct';
 
 function App() {
   return (
-    <div className='container'>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">React</a>
-          <ul className="nav">
-            <li className="nav-item">
-              <a className="nav-link" href="#">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Counter</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">FnCounter</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link">Product</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link">Login</a>
-            </li>
-          </ul>
+    <Router>
+      <div className='container'>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="#">React</a>
+            <ul className="nav">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/counter">Counter</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/fncounter">FnCounter</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/products">Product</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">Login</Link>
+              </li>
+            </ul>
 
-        </div>
-      </nav>
-    </div>
+          </div>
+        </nav>
+
+        <main>
+          <Routes>
+            <Route path='/' element={<Hello message='Hello React'/>}/>
+            <Route path='/counter' element={<Counter initValue={10}/>}/>
+            <Route path='/fncounter' element={<FnCounter initValue={10}/>}/>
+            <Route path='/products' element={<ListProducts/>}/>
+            <Route path='/products/:id' element={<EditProduct/>}/>
+            
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Product } from '../model/Product';
 import './ListProducts.css';
+import {useNavigate} from 'react-router-dom';
 
 function ListProducts() {
 
     const [products, setProducts] = useState<Product[]>([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchProducts();
@@ -46,6 +48,11 @@ function ListProducts() {
 
     }
 
+    function edit(item: Product){
+
+        navigate("/products/" + item.id);
+    }
+
     return (
         <div>
             <h3>List Products</h3>
@@ -59,7 +66,7 @@ function ListProducts() {
                             <p>Price: {item.price}</p>
                             <div>
                                 <button onClick={() => {remove(item)}}>Delete</button> &nbsp;
-                                <button>Edit</button>
+                                <button onClick={() => edit(item)}>Edit</button>
                             </div>
 
                         </div>
