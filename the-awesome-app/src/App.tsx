@@ -5,26 +5,34 @@ import Hello from './components/Hello';
 import Counter from './components/Counter';
 import FnCounter from './components/FnCounter';
 import ListProducts from './components/ListProducts';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      
-      </header>
-      <section>
-          {/* <Hello message="Hello React"/>
-          <Hello message="Welcome React"/>
-          <Counter initValue={10}/> */}
-          {/* <Counter initValue={15}/>
+    <div className='container'>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">React</a>
+          <ul className="nav">
+            <li className="nav-item">
+              <a className="nav-link" href="#">Home</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Counter</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">FnCounter</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link">Product</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link">Login</a>
+            </li>
+          </ul>
 
-          <FnCounter initValue={5}/>
-          <FnCounter /> */}
-
-          <ListProducts/>
- 
-      </section>
+        </div>
+      </nav>
     </div>
   );
 }
