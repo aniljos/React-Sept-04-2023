@@ -1,12 +1,17 @@
 import { useState } from "react";
 import Alert from "./Alert";
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import { AuthState } from "../redux/authReducer";
+import {useDispatch} from 'react-redux';
 
 function Login(){
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     async function login(){
         console.log(`username: ${userName}, pwd: ${password}`);
@@ -16,7 +21,19 @@ function Login(){
                 
                 const url = "http://localhost:9000/login";
                 const response = await axios.post(url, {name: userName, password: password});
+                const accessToken = response.data.accessToken;
+                const refreshToken = response.data.refreshToken;
+
+                const updateState: AuthState = {
+                    isAuthenticated: true,
+                    userName,
+                    accessToken,
+                    refreshToken
+                }
+                dispatch({type: "UPDATE_AUTH", payload: updateState});
+
                 setErrorMessage("");
+                navigate("/products");
 
             } catch (error) {
                 
