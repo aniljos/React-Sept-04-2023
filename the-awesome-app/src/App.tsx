@@ -9,6 +9,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import EditProduct from './components/EditProduct';
 import Login from './components/Login';
+import {appRoutes} from './routes/routes';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">React</a>
-            <ul className="nav">
+            {/* <ul className="nav">
               <li className="nav-item">
                 <Link className="nav-link" to="/">Home</Link>
               </li>
@@ -33,6 +34,15 @@ function App() {
               <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
               </li>
+            </ul> */}
+            <ul className="nav">
+              {appRoutes.filter(item => item.isInMainMenu).map(item => {
+                return (
+                  <li key={item.path} className="nav-item">
+                    <Link className="nav-link" to={item.path}>{item.title}</Link>
+                  </li>
+                )
+              })}
             </ul>
 
           </div>
