@@ -1,9 +1,11 @@
 import Counter from "../components/Counter";
 import EditProduct from "../components/EditProduct";
 import FnCounter from "../components/FnCounter";
+import GadgetStore from "../components/GadgetStore";
 import Hello from "../components/Hello";
 import ListProducts from "../components/ListProducts";
 import Login from "../components/Login";
+import ViewCart from "../components/ViewCart";
 
 type Route = {
     path: string;
@@ -57,6 +59,20 @@ export const appRoutes: Route[] = [
         path: "/login",
         component: Login,
         title: "Login",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/gadgets",
+        component: GadgetStore,
+        title: "Gadget Store",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/viewcart",
+        component: ViewCart,
+        title: "View Cart",
         isInMainMenu: true,
         isProtected: false
     }
