@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react"
 import { Product } from "../model/Product";
 import axios from "axios";
-import {useDispatch} from 'react-redux';
-import { AppDispatch } from "../redux/store";
+import {useDispatch, useSelector} from 'react-redux';
+import { AppDispatch, AppState } from "../redux/store";
 import { CartItem } from "../model/CartItem";
+import { createAddToCartAction, createSetProductsAction } from "../redux/gadgetsActionCreators";
 
 function GadgetStore(){
 
-    const [products, setProducts] = useState<Product[]>([]);
+    //const [products, setProducts] = useState<Product[]>([]);
     const dispatch = useDispatch<AppDispatch>();
+    const products = useSelector<AppState>(state => state.gadgets.products) as Product[];
+
     useEffect(() => {
 
-        fetchProducts();
+        //fetchProducts();
+        dispatch(createSetProductsAction());
 
     }, [])
 
@@ -20,7 +24,7 @@ function GadgetStore(){
         try {
             
             const response = await axios.get("http://localhost:9000/products");
-            setProducts(response.data);
+            //setProducts(response.data);
 
         } catch (error) {
             console.log("error", error);
@@ -28,7 +32,9 @@ function GadgetStore(){
     }
 
     function addToCart(item: Product){
-        dispatch({type: "ADD_TO_CART", payload: new CartItem(item, 1)});
+        //dispatch({type: "ADD_TO_CART", payload: new CartItem(item, 1)});
+
+        dispatch(createAddToCartAction( new CartItem(item, 1)));
     }
 
     function renderProducts() {

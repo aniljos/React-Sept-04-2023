@@ -28,6 +28,13 @@ export const gadgetStoreReducer = (state = initState, action: any) => {
             cart
         };
     }
+     //{type: "SET_PRODUCTS", payload: [array_of_products]}
+    if(action.type === "SET_PRODUCTS"){
+        return {
+            ...state,
+            products:action.payload
+        }
+    }
 
     return state;
 }
