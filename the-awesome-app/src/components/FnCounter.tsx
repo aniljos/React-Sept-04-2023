@@ -7,6 +7,8 @@ function FnCounter( props: FnCounterProps){
 
     const [counter, setCounter] = useState(props.initValue ? props.initValue : 0);
     const inputRef = useRef<HTMLInputElement>(null);
+    //let incrementCount = 0;
+    const incrementCount = useRef(0);
 
 
     //signatue: useEffect(callback, [dependencies])
@@ -30,6 +32,9 @@ function FnCounter( props: FnCounterProps){
     function inc(){
         setCounter(counter + 1);
         console.log("Counter", counter);
+        incrementCount.current++;
+        console.log("incrementCount", incrementCount.current);
+
     }
 
     const decr = ()=> {

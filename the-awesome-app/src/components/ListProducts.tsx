@@ -3,10 +3,13 @@ import axios from 'axios';
 import { Product } from '../model/Product';
 import './ListProducts.css';
 import {useNavigate} from 'react-router-dom';
+import Alert from "./Alert";
 
 function ListProducts() {
 
-    const [products, setProducts] = useState<Product[]>([])
+    const [products, setProducts] = useState<Product[]>([]);
+    const [message, setMessage] = useState("");
+    const [severity, setSeverity] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,9 +44,18 @@ function ListProducts() {
             const url = "http://localhost:9000/products/" + item.id;
             await axios.delete(url);
             fetchProducts();
-            alert("Record deleted");
+           // alert("Record deleted");
+           setMessage(`Record with Id: ${item.id} was deleted`);
+           setSeverity("success");
+           setTimeout(() => {
+            setMessage("")
+           }, 3000)
+
         } catch (error) {
-            alert("Failed to delete record");
+            //alert("Failed to delete record");
+
+            setMessage(`Failed to delete record with Id: ${item.id}`);
+            setSeverity("error");
         }
 
     }
@@ -52,10 +64,16 @@ function ListProducts() {
 
         navigate("/products/" + item.id);
     }
+    function closeAlert(){
+        setMessage("");
+    }
 
     return (
         <div>
             <h3>List Products</h3>
+
+            {message ? <Alert message={message} severity={severity} onClose={closeAlert}/> : null}
+
             <div style={{display: "flex", flexFlow: 'row wrap', justifyContent: 'center'}}>
                 {products.map((item, index) => {
                     return (

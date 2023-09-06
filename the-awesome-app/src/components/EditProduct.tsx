@@ -2,11 +2,13 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import { Product } from '../model/Product';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 function EditProduct(){
 
     const [product, setProduct] = useState<Product>(new Product());
     const params = useParams();
+    const navigate = useNavigate();
     const productId = params["id"];
 
     useEffect(() => {
@@ -32,6 +34,28 @@ function EditProduct(){
         setProduct(copy_product);
     }
 
+    function handlePriceChange(evt: ChangeEvent<HTMLInputElement>){
+
+        setProduct({...product, price: Number(evt.target.value)})
+    }
+
+    async function save(){
+
+        try {
+            const url = "http://localhost:9000/products/" + productId;
+            await axios.put(url, product);
+            alert("Saved");
+            navigate(-1);
+
+        } catch (error) {
+            alert("Failed to save");
+        }
+
+    }
+    function cancel(){
+        navigate(-1);
+    }
+
     return (
         <div>
             <h4>Edit Product: {productId}</h4>
@@ -45,18 +69,19 @@ function EditProduct(){
             <div className="form-group">
                 <label>Price</label>
                 <input type="number" className="form-control" placeholder="Price" 
-                                value={product.price}/>
+                                value={product.price} onChange={handlePriceChange}/>
             </div>
 
             <div className="form-group">
                 <label>Description</label>
                 <input type="text" className="form-control" placeholder="Description" 
-                                value={product.description}/>
+                                value={product.description} 
+                                onChange={(evt) => setProduct({...product, description: evt.target.value})}/>
             </div>
 
             <div>
-                <button className="btn btn-primary">Save</button>&nbsp;
-                <button className="btn btn-primary">Cancel</button>
+                <button className="btn btn-primary" onClick={save}>Save</button>&nbsp;
+                <button className="btn btn-primary" onClick={cancel}>Cancel</button>
             </div>
         </div>
     )
