@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import EditProduct from './components/EditProduct';
 import Login from './components/Login';
 import {appRoutes} from './routes/routes';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -50,12 +51,29 @@ function App() {
 
         <main>
           <Routes>
-            <Route path='/' element={<Hello message='Hello React'/>}/>
+            {/* <Route path='/' element={<Hello message='Hello React'/>}/>
             <Route path='/counter' element={<Counter initValue={10}/>}/>
             <Route path='/fncounter' element={<FnCounter initValue={10}/>}/>
             <Route path='/products' element={<ListProducts/>}/>
             <Route path='/products/:id' element={<EditProduct/>}/>
-            <Route path='/login' element={<Login/>}/>
+            <Route path='/login' element={<Login/>}/> */}
+
+            {appRoutes.map(item => {
+
+              if(item.isProtected){
+                return (
+                  <Route key={item.path} path={item.path} 
+                          element={<ProtectedRoute><item.component {...item.props}/></ProtectedRoute>}/>
+                )
+              }
+              else{
+                return (
+                  <Route key={item.path} path={item.path} element={<item.component {...item.props}/>}/>
+                )
+              }
+             
+
+            })}
             
           </Routes>
         </main>
