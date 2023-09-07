@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Hello from './components/Hello';
@@ -11,12 +11,28 @@ import EditProduct from './components/EditProduct';
 import Login from './components/Login';
 import {appRoutes} from './routes/routes';
 import ProtectedRoute from './components/ProtectedRoute';
+import { AppThemeContext } from './context/AppThemeContext';
 
 function App() {
+
+  const themeContext = useContext(AppThemeContext);
+
+  const mode = themeContext.mode;
+
+  function switchMode(){
+
+    if(mode === "dark"){
+      themeContext.dispatch({type: "SET_LIGHT"});
+    }
+    else{
+      themeContext.dispatch({type: "SET_DARK"});
+    }
+  }
+
   return (
     <Router>
       <div className='container'>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className={`navbar navbar-${mode} bg-${mode}`}>
           <div className="container-fluid">
             <a className="navbar-brand" href="#">React</a>
             {/* <ul className="nav">
@@ -44,6 +60,9 @@ function App() {
                   </li>
                 )
               })}
+              <li className="nav-item">
+                  <button onClick={switchMode} className='btn btn-primary'>Switch Theme</button>
+              </li>
             </ul>
 
           </div>
