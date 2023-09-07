@@ -1,54 +1,53 @@
-import { useState } from "react";
 import Alert from "./Alert";
-import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
-import { AuthState } from "../redux/authReducer";
-import {useDispatch} from 'react-redux';
-import { useTitle } from "../hooks/useTitle";
+import { useLogin } from "../hooks/useLogin";
 
 function Login(){
 
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    useTitle("Login");
+    const [userName, setUserName, password, setPassword, errorMessage, setErrorMessage, login] = useLogin();
 
-    async function login(){
-        console.log(`username: ${userName}, pwd: ${password}`);
-        if(userName && password){
+    //SHIFTED TO useLogin CUSTOM HOOK
 
-            try {
+    // const [userName, setUserName] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [errorMessage, setErrorMessage] = useState("");
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
+    // useTitle("Login");
+
+    // async function login(){
+    //     console.log(`username: ${userName}, pwd: ${password}`);
+    //     if(userName && password){
+
+    //         try {
                 
-                const url = "http://localhost:9000/login";
-                const response = await axios.post(url, {name: userName, password: password});
-                const accessToken = response.data.accessToken;
-                const refreshToken = response.data.refreshToken;
+    //             const url = "http://localhost:9000/login";
+    //             const response = await axios.post(url, {name: userName, password: password});
+    //             const accessToken = response.data.accessToken;
+    //             const refreshToken = response.data.refreshToken;
 
-                const updateState: AuthState = {
-                    isAuthenticated: true,
-                    userName,
-                    accessToken,
-                    refreshToken
-                }
-                dispatch({type: "UPDATE_AUTH", payload: updateState});
+    //             const updateState: AuthState = {
+    //                 isAuthenticated: true,
+    //                 userName,
+    //                 accessToken,
+    //                 refreshToken
+    //             }
+    //             dispatch({type: "UPDATE_AUTH", payload: updateState});
 
-                setErrorMessage("");
-                navigate("/products");
+    //             setErrorMessage("");
+    //             navigate("/products");
 
-            } catch (error) {
+    //         } catch (error) {
                 
-                setErrorMessage("Invalid credentials");
+    //             setErrorMessage("Invalid credentials");
 
-            }
+    //         }
 
 
-        }
-        else{
-            setErrorMessage("Please enter the credentials");
-        }
-    }
+    //     }
+    //     else{
+    //         setErrorMessage("Please enter the credentials");
+    //     }
+    // }
 
     return (
         <div>

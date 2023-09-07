@@ -49,13 +49,13 @@ export const appRoutes: Route[] = [
         component: ListProducts,
         title: "Products",
         isInMainMenu: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: "/products/:id",
         component: EditProduct,
         isInMainMenu: false,
-        isProtected: true
+        isProtected: false
     },
     {
         path: "/login",

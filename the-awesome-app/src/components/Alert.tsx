@@ -1,11 +1,19 @@
+import React, { useState } from "react";
 
 type AlertProps = {
     message: string,
     severity?: string,
     onClose?: () => void
 }
+
+//React.memo => 16.3, optimization, the component will be rerender only if its state or props changes
+
 //severity => info, warning, error, success
-function Alert(props: AlertProps){
+const Alert = React.memo(React.forwardRef((props: AlertProps, ref: any) => {
+
+    const [showHelper, setShowHelper]  = useState(true);
+
+    console.log("Rendering alert...");
 
     let panelSeverity="alert-info", btnSeverity="btn-info";
     if(props.severity){
@@ -40,7 +48,10 @@ function Alert(props: AlertProps){
             <button className={`btn ${btnSeverity}`} onClick={close}>
                 <span>&times;</span>
             </button>
+            {showHelper ? <p>
+                This is a helper text.
+            </p> : null}
         </div>
     )
-}
+}))
 export default Alert;

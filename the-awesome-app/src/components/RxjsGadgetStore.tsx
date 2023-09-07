@@ -4,30 +4,32 @@ import axios from "axios";
 import {cartStore} from '../rxjs/CartStore';
 import { CartItem } from "../model/CartItem";
 import RxjsViewCart from "./RxjsViewCart";
+import { useAxiosFetchProducts } from "../hooks/useAxiosFetchProducts";
 
 function RxjsGadgetStore(){
 
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products] =  useAxiosFetchProducts();
+    // const [products, setProducts] = useState<Product[]>([]);
    
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        fetchProducts();
+    //     fetchProducts();
         
 
-    }, [])
+    // }, [])
 
-    async function fetchProducts(){
+    // async function fetchProducts(){
 
-        try {
+    //     try {
             
-            const response = await axios.get(process.env.REACT_APP_BASE_URL + "/products");
-            setProducts(response.data);
+    //         const response = await axios.get(process.env.REACT_APP_BASE_URL + "/products");
+    //         setProducts(response.data);
 
-        } catch (error) {
-            console.log("error", error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // }
 
     function addToCart(item: Product){
         cartStore.addToCart(new CartItem(item, 1));

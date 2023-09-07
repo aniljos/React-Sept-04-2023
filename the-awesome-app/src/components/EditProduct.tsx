@@ -1,14 +1,18 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import { Product } from '../model/Product';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import Alert from './Alert';
 
 function EditProduct(){
 
-    const [product, setProduct] = useState<Product>(new Product());
+    
+    const [product, setProduct] = useState<Product>(new Product(0, "", 0, ""));
+    const [severity, setSeverity] = useState("info");
     const params = useParams();
     const navigate = useNavigate();
+    const alertRef = useRef(null);
     const productId = params["id"];
 
     useEffect(() => {
@@ -32,12 +36,20 @@ function EditProduct(){
         const copy_product = {...product};
         copy_product.name = value;
         setProduct(copy_product);
+        setSeverity("info");
     }
 
     function handlePriceChange(evt: ChangeEvent<HTMLInputElement>){
 
-        setProduct({...product, price: Number(evt.target.value)})
+        setProduct({...product, price: Number(evt.target.value)});
+        setSeverity("warning");
     }
+
+    const handleAlertClose = useCallback( () => {
+    
+        alert("Closing the alert: " +  product.name);
+    
+    }, [product.name]);
 
     async function save(){
 
@@ -56,9 +68,22 @@ function EditProduct(){
         navigate(-1);
     }
 
+    const calc = useMemo( ()=>{
+
+        console.log("invoking calc");
+        if(product.price){
+            return product.price * 7;
+        }
+        return 0;
+       
+    }, [product.price]);
+
     return (
         <div>
             <h4>Edit Product: {productId}</h4>
+            {"result: " + calc}
+
+            <Alert ref={alertRef} message='Updating the product...' severity={severity} onClose={handleAlertClose}/>
 
             <div className="form-group">
                 <label>Name</label>
