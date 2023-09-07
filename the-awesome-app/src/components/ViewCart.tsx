@@ -11,10 +11,12 @@ function ViewCart(): JSX.Element {
     function remove(item: CartItem) {
 
     }
+
+    
     return (
         <div>
             <h5>Gadgets Cart</h5>
-
+            
             <div className="row row-cols-1 row-cols-md-2 g-4">
                 {cart.map((item, index) => {
                     return (

@@ -77,6 +77,7 @@ function ListProducts() {
             <div style={{display: "flex", flexFlow: 'row wrap', justifyContent: 'center'}}>
                 {products.map((item, index) => {
                     return (
+                        // <ProductView product={index} onRemove={remove} onEdit={edit}/>
                         <div key={index} className="product">
                             <p>Id: {item.id}</p>
                             <p>{item.name}</p>

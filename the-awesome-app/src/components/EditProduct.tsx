@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import { Product } from '../model/Product';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-import Alert from './Alert';
+import Alert, { AlertRef } from './Alert';
 
 function EditProduct(){
 
@@ -12,7 +12,8 @@ function EditProduct(){
     const [severity, setSeverity] = useState("info");
     const params = useParams();
     const navigate = useNavigate();
-    const alertRef = useRef(null);
+    const alertRef = useRef<AlertRef>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const productId = params["id"];
 
     useEffect(() => {
@@ -53,6 +54,7 @@ function EditProduct(){
 
     async function save(){
 
+        
         try {
             const url = "http://localhost:9000/products/" + productId;
             await axios.put(url, product);
@@ -78,6 +80,19 @@ function EditProduct(){
        
     }, [product.price]);
 
+    function showRefs(){
+        console.log("alertRef", alertRef);
+        console.log("inputRef", inputRef);
+
+        if(alertRef.current?.isHelperVisible)
+        {
+            alertRef.current.hideHelperText();
+        }
+        else{
+            alertRef.current?.showHelperText();
+        }
+    }
+
     return (
         <div>
             <h4>Edit Product: {productId}</h4>
@@ -85,9 +100,13 @@ function EditProduct(){
 
             <Alert ref={alertRef} message='Updating the product...' severity={severity} onClose={handleAlertClose}/>
 
+            <div>
+                <button className='btn btn-warning' onClick={showRefs}>Show refs</button>
+            </div>
+
             <div className="form-group">
                 <label>Name</label>
-                <input className="form-control" placeholder="Name" 
+                <input ref={inputRef} className="form-control" placeholder="Name" 
                                 value={product.name} onChange={handleChangeName}/>
             </div>
 

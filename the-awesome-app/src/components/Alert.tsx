@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useState } from "react";
 
 type AlertProps = {
     message: string,
@@ -6,12 +6,37 @@ type AlertProps = {
     onClose?: () => void
 }
 
+export type AlertRef = {
+    version: string;
+    name: string;
+    showHelperText: () => void;
+    hideHelperText: () => void;
+    isHelperVisible: boolean
+}
+
 //React.memo => 16.3, optimization, the component will be rerender only if its state or props changes
 
 //severity => info, warning, error, success
-const Alert = React.memo(React.forwardRef((props: AlertProps, ref: any) => {
+const Alert = React.memo(React.forwardRef<AlertRef, AlertProps>((props: AlertProps, ref) => {
 
     const [showHelper, setShowHelper]  = useState(true);
+    useImperativeHandle(ref, () => {
+
+        //returns an object(this object is what the ref will hold)
+        return {
+            version: "1.0.0",
+            name: "Alert Component",
+            showHelperText: () => {
+                setShowHelper(true);
+            },
+            hideHelperText: () => {
+                setShowHelper(false);
+            },
+            isHelperVisible: showHelper
+
+        }
+
+    })
 
     console.log("Rendering alert...");
 
