@@ -4,6 +4,7 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { AuthState } from "../redux/authReducer";
 import {useDispatch} from 'react-redux';
+import { useTitle } from "../hooks/useTitle";
 
 function Login(){
 
@@ -12,6 +13,7 @@ function Login(){
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    useTitle("Login");
 
     async function login(){
         console.log(`username: ${userName}, pwd: ${password}`);

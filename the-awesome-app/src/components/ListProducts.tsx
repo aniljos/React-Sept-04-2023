@@ -18,7 +18,7 @@ function ListProducts() {
 
     async function fetchProducts() {
 
-        const url = "http://localhost:9000/products";
+        const url = process.env.REACT_APP_BASE_URL + "/products" //"http://localhost:9000/products";
         // axios
         //     .get(url)
         //     .then((response)=> {
@@ -41,7 +41,7 @@ function ListProducts() {
     async function remove(item:Product){
 
         try {
-            const url = "http://localhost:9000/products/" + item.id;
+            const url = process.env.REACT_APP_BASE_URL + "/products/" + item.id //"http://localhost:9000/products/" + item.id;
             await axios.delete(url);
             fetchProducts();
            // alert("Record deleted");

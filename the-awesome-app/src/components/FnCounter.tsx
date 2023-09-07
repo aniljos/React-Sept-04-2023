@@ -1,4 +1,5 @@
 import {ChangeEvent, useState, useRef, useEffect} from 'react';
+import { useTitle } from '../hooks/useTitle';
 
 type FnCounterProps = {
     initValue?: number
@@ -9,18 +10,22 @@ function FnCounter( props: FnCounterProps){
     const inputRef = useRef<HTMLInputElement>(null);
     //let incrementCount = 0;
     const incrementCount = useRef(0);
+    useTitle("FnCounter");
 
 
     //signatue: useEffect(callback, [dependencies])
     // useEffect equivalent to componentDidMount => useEffect(callback, [])
     useEffect(() => {
 
+        
         console.log("useEffect equivalent to componentDidMount...")
+        
 
         // useEffect equivalent to componentWillUnMount 
                             //=> callback returned form the useEffect with no dependencies
         return () => {
             console.log("useEffect equivalent to componentWillUnMount...")
+            
         }
     }, [])
 

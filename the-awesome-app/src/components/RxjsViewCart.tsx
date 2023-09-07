@@ -1,12 +1,18 @@
-import React, {JSX} from 'react';
+import React, {JSX, useEffect, useState} from 'react';
 import { CartItem } from '../model/CartItem';
-import {useSelector} from 'react-redux';
-import { AppState } from '../redux/store';
+import {cartStore} from '../rxjs/CartStore';
 
-function ViewCart(): JSX.Element {
+function RxjsViewCart(): JSX.Element {
 
-    const cart: CartItem[] = useSelector<AppState>(state => state.gadgets.cart) as CartItem[];
+    const [cart, setCart] = useState<CartItem[]>([]);
 
+    useEffect(() => {
+
+        //setCart(cartStore.getCart());
+        cartStore.cartSubject.subscribe((updatedCart) => {
+            setCart(updatedCart);
+        })
+    }, [])
 
     function remove(item: CartItem) {
 
@@ -38,4 +44,4 @@ function ViewCart(): JSX.Element {
     );
 }
 
-export default ViewCart;
+export default RxjsViewCart;

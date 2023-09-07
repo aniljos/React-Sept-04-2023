@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react"
 import { Product } from "../model/Product";
 import axios from "axios";
-import {useDispatch, useSelector} from 'react-redux';
-import { AppDispatch, AppState } from "../redux/store";
+import {cartStore} from '../rxjs/CartStore';
 import { CartItem } from "../model/CartItem";
-import { createAddToCartAction, createSetProductsAction } from "../redux/gadgetsActionCreators";
-import ViewCart from "./ViewCart";
+import RxjsViewCart from "./RxjsViewCart";
 
-function GadgetStore(){
+function RxjsGadgetStore(){
 
-    //const [products, setProducts] = useState<Product[]>([]);
-    const dispatch = useDispatch<AppDispatch>();
-    const products = useSelector<AppState>(state => state.gadgets.products) as Product[];
+    const [products, setProducts] = useState<Product[]>([]);
+   
 
     useEffect(() => {
 
-        //fetchProducts();
-        dispatch(createSetProductsAction());
+        fetchProducts();
+        
 
     }, [])
 
@@ -24,8 +21,8 @@ function GadgetStore(){
 
         try {
             
-            const response = await axios.get("http://localhost:9000/products");
-            //setProducts(response.data);
+            const response = await axios.get(process.env.REACT_APP_BASE_URL + "/products");
+            setProducts(response.data);
 
         } catch (error) {
             console.log("error", error);
@@ -33,9 +30,7 @@ function GadgetStore(){
     }
 
     function addToCart(item: Product){
-        //dispatch({type: "ADD_TO_CART", payload: new CartItem(item, 1)});
-
-        dispatch(createAddToCartAction( new CartItem(item, 1)));
+        cartStore.addToCart(new CartItem(item, 1));
     }
 
     function renderProducts() {
@@ -65,9 +60,9 @@ function GadgetStore(){
 
     return (
         <div>
-            <h4>Redux Gadget Store</h4>
+            <h4>Rxjs Gadget Store</h4>
             <div style={{border: "2px solid green", minHeight: "200px"}}>
-                <ViewCart/>
+                <RxjsViewCart/>
             </div>
             <div>
                 {renderProducts()}
@@ -76,4 +71,4 @@ function GadgetStore(){
     )
 }
 
-export default GadgetStore
+export default RxjsGadgetStore

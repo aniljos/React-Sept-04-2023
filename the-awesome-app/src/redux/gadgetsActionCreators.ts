@@ -12,7 +12,7 @@ export const createSetProductsAction = () => {
     return async (dispatch: any) => {
 
         try {
-            const response = await axios.get("http://localhost:9000/products");
+            const response = await axios.get(process.env.REACT_APP_BASE_URL + "/products");
             const products = response.data;
             dispatch({
                 type: "SET_PRODUCTS", payload: products

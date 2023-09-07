@@ -5,6 +5,8 @@ import GadgetStore from "../components/GadgetStore";
 import Hello from "../components/Hello";
 import ListProducts from "../components/ListProducts";
 import Login from "../components/Login";
+import RxjsGadgetStore from "../components/RxjsGadgetStore";
+import RxjsViewCart from "../components/RxjsViewCart";
 import ViewCart from "../components/ViewCart";
 
 type Route = {
@@ -73,6 +75,20 @@ export const appRoutes: Route[] = [
         path: "/viewcart",
         component: ViewCart,
         title: "View Cart",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/rxjsgadgets",
+        component: RxjsGadgetStore,
+        title: "Rxjs Gadget Store",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/rxjsviewcart",
+        component: RxjsViewCart,
+        title: "Rxjs View Cart",
         isInMainMenu: true,
         isProtected: false
     }
