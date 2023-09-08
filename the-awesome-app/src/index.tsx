@@ -6,18 +6,22 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { AppThemeContext, AppThemeProvider, initialState } from './context/AppThemeContext';
+import AppErrorBoundary from './errorboundary/AppErrorBoundary';
+import './axios/interceptor';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  
+
+  <AppErrorBoundary>
     <AppThemeProvider>
       <Provider store={store}>
         <App />
       </Provider>
     </AppThemeProvider>
+  </AppErrorBoundary>
    
 );
 

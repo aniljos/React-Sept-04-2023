@@ -4,6 +4,9 @@ import { Product } from '../model/Product';
 import './ListProducts.css';
 import {useNavigate} from 'react-router-dom';
 import Alert from "./Alert";
+import {useSelector} from 'react-redux';
+import { AppState } from "../redux/store";
+import { AuthState } from "../redux/authReducer";
 
 function ListProducts() {
 
@@ -11,6 +14,7 @@ function ListProducts() {
     const [message, setMessage] = useState("");
     const [severity, setSeverity] = useState("");
     const navigate = useNavigate();
+    const auth = useSelector<AppState>(state => state.auth) as AuthState;
 
     useEffect(() => {
         fetchProducts();
@@ -18,7 +22,7 @@ function ListProducts() {
 
     async function fetchProducts() {
 
-        const url = process.env.REACT_APP_BASE_URL + "/products" //"http://localhost:9000/products";
+        const url = process.env.REACT_APP_BASE_URL + "/secure_products" //"http://localhost:9000/products";
         // axios
         //     .get(url)
         //     .then((response)=> {
@@ -28,7 +32,9 @@ function ListProducts() {
         //     })
 
         try {
-
+            // Moved to the axios interceptor
+            //const headers = {Authorization: `Bearer ${auth.accessToken}`}
+            //const response = await axios.get(url, {headers});
             const response = await axios.get(url);
             console.log("response", response);
             setProducts(response.data);
@@ -41,7 +47,7 @@ function ListProducts() {
     async function remove(item:Product){
 
         try {
-            const url = process.env.REACT_APP_BASE_URL + "/products/" + item.id //"http://localhost:9000/products/" + item.id;
+            const url = process.env.REACT_APP_BASE_URL + "/secure_products/" + item.id //"http://localhost:9000/products/" + item.id;
             await axios.delete(url);
             fetchProducts();
            // alert("Record deleted");

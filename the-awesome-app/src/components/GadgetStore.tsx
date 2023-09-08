@@ -24,7 +24,7 @@ function GadgetStore(){
 
         try {
             
-            const response = await axios.get("http://localhost:9000/products");
+            const response = await axios.get(process.env.REACT_APP_BASE_URL + "/secure_products/");
             //setProducts(response.data);
 
         } catch (error) {

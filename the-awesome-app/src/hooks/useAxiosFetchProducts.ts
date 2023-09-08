@@ -15,7 +15,7 @@ export const useAxiosFetchProducts = () => {
     async function fetchProducts(){
         try {
             
-            const url = process.env.REACT_APP_BASE_URL + "/products";
+            const url = process.env.REACT_APP_BASE_URL + "/secure_products";
             const response = await axios.get(url);
             setProducts(response.data);
 

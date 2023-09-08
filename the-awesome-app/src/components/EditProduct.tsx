@@ -23,7 +23,7 @@ function EditProduct(){
     async function fetchProduct(){
 
         try {
-            const url = "http://localhost:9000/products/" + productId;
+            const url = process.env.REACT_APP_BASE_URL + "/secure_products/" + productId;
             const response = await axios.get(url);
             setProduct(response.data);
         } catch (error) {

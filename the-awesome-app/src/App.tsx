@@ -9,9 +9,10 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import EditProduct from './components/EditProduct';
 import Login from './components/Login';
-import {appRoutes} from './routes/routes';
+import { appRoutes } from './routes/routes';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AppThemeContext } from './context/AppThemeContext';
+import AppErrorBoundary from './errorboundary/AppErrorBoundary';
 
 function App() {
 
@@ -19,13 +20,13 @@ function App() {
 
   const mode = themeContext.mode;
 
-  function switchMode(){
+  function switchMode() {
 
-    if(mode === "dark"){
-      themeContext.dispatch({type: "SET_LIGHT"});
+    if (mode === "dark") {
+      themeContext.dispatch({ type: "SET_LIGHT" });
     }
-    else{
-      themeContext.dispatch({type: "SET_DARK"});
+    else {
+      themeContext.dispatch({ type: "SET_DARK" });
     }
   }
 
@@ -61,7 +62,7 @@ function App() {
                 )
               })}
               <li className="nav-item">
-                  <button onClick={switchMode} className='btn btn-primary'>Switch Theme</button>
+                <button onClick={switchMode} className='btn btn-primary'>Switch Theme</button>
               </li>
             </ul>
 
@@ -69,32 +70,34 @@ function App() {
         </nav>
 
         <main>
-          <Routes>
-            {/* <Route path='/' element={<Hello message='Hello React'/>}/>
+          <AppErrorBoundary>
+            <Routes>
+              {/* <Route path='/' element={<Hello message='Hello React'/>}/>
             <Route path='/counter' element={<Counter initValue={10}/>}/>
             <Route path='/fncounter' element={<FnCounter initValue={10}/>}/>
             <Route path='/products' element={<ListProducts/>}/>
             <Route path='/products/:id' element={<EditProduct/>}/>
             <Route path='/login' element={<Login/>}/> */}
 
-            {appRoutes.map(item => {
+              {appRoutes.map(item => {
 
-              if(item.isProtected){
-                return (
-                  <Route key={item.path} path={item.path} 
-                          element={<ProtectedRoute><item.component {...item.props}/></ProtectedRoute>}/>
-                )
-              }
-              else{
-                return (
-                  <Route key={item.path} path={item.path} element={<item.component {...item.props}/>}/>
-                )
-              }
-             
+                if (item.isProtected) {
+                  return (
+                    <Route key={item.path} path={item.path}
+                      element={<ProtectedRoute><item.component {...item.props} /></ProtectedRoute>} />
+                  )
+                }
+                else {
+                  return (
+                    <Route key={item.path} path={item.path} element={<item.component {...item.props} />} />
+                  )
+                }
 
-            })}
-            
-          </Routes>
+
+              })}
+
+            </Routes>
+          </AppErrorBoundary>
         </main>
       </div>
     </Router>

@@ -1,7 +1,10 @@
 import {Component, ReactNode} from 'react';
+import withBorder from '../hoc/withBorder';
+import withNavigate from '../hoc/withNavigate';
 
 type CounterProps = {
-    initValue: number
+    initValue: number,
+    navigate: (route: string) => void
 }
 
 
@@ -42,6 +45,10 @@ class Counter extends Component<CounterProps>{
         });
     }
 
+    navigate = () => {
+        this.props.navigate("/fncounter")
+    }
+
     render(): ReactNode {
         console.log("[Counter]: render");
         //return the JSX
@@ -49,9 +56,14 @@ class Counter extends Component<CounterProps>{
             <div>
                 <h4>Counter: {this.state.counter}</h4>
                 <p>This is a class component</p>
+                <br/>
                 <div>
-                    <button onClick={this.inc}>Inc</button> &nbsp;
-                    <button onClick={this.decr}>Decr</button>
+                    <button className='btn btn-primary' onClick={this.inc}>Inc</button> &nbsp;
+                    <button className='btn btn-primary' onClick={this.decr}>Decr</button>
+                </div>
+                <br/>
+                <div>
+                    <button className='btn btn-primary' onClick={this.navigate}>Navigate To FnCounter</button>
                 </div>
             </div>
         )
@@ -68,4 +80,5 @@ class Counter extends Component<CounterProps>{
     }
 }
 
-export default Counter;
+export default withBorder(withNavigate(Counter));
+//export default Counter;

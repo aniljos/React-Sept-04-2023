@@ -3,6 +3,7 @@ import EditProduct from "../components/EditProduct";
 import FnCounter from "../components/FnCounter";
 import GadgetStore from "../components/GadgetStore";
 import Hello from "../components/Hello";
+import HelloWithErrors from "../components/HelloWithErrors";
 import ListProducts from "../components/ListProducts";
 import Login from "../components/Login";
 import RxjsGadgetStore from "../components/RxjsGadgetStore";
@@ -42,20 +43,20 @@ export const appRoutes: Route[] = [
         title: "FnCounter",
         props: {initValue: 10},
         isInMainMenu: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: "/products",
         component: ListProducts,
         title: "Products",
         isInMainMenu: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: "/products/:id",
         component: EditProduct,
         isInMainMenu: false,
-        isProtected: false
+        isProtected: true
     },
     {
         path: "/login",
@@ -69,14 +70,14 @@ export const appRoutes: Route[] = [
         component: GadgetStore,
         title: "Gadget Store",
         isInMainMenu: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: "/viewcart",
         component: ViewCart,
         title: "View Cart",
         isInMainMenu: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: "/rxjsgadgets",
@@ -89,6 +90,13 @@ export const appRoutes: Route[] = [
         path: "/rxjsviewcart",
         component: RxjsViewCart,
         title: "Rxjs View Cart",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/helloerror",
+        component: HelloWithErrors,
+        title: "Error Boundary",
         isInMainMenu: true,
         isProtected: false
     }
