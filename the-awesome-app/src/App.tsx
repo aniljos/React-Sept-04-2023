@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Suspense, useContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Hello from './components/Hello';
@@ -71,32 +71,34 @@ function App() {
 
         <main>
           <AppErrorBoundary>
-            <Routes>
-              {/* <Route path='/' element={<Hello message='Hello React'/>}/>
-            <Route path='/counter' element={<Counter initValue={10}/>}/>
-            <Route path='/fncounter' element={<FnCounter initValue={10}/>}/>
-            <Route path='/products' element={<ListProducts/>}/>
-            <Route path='/products/:id' element={<EditProduct/>}/>
-            <Route path='/login' element={<Login/>}/> */}
+            <Suspense fallback={<div>loading...</div>}>
+              <Routes>
+                {/* <Route path='/' element={<Hello message='Hello React'/>}/>
+              <Route path='/counter' element={<Counter initValue={10}/>}/>
+              <Route path='/fncounter' element={<FnCounter initValue={10}/>}/>
+              <Route path='/products' element={<ListProducts/>}/>
+              <Route path='/products/:id' element={<EditProduct/>}/>
+              <Route path='/login' element={<Login/>}/> */}
 
-              {appRoutes.map(item => {
+                {appRoutes.map(item => {
 
-                if (item.isProtected) {
-                  return (
-                    <Route key={item.path} path={item.path}
-                      element={<ProtectedRoute><item.component {...item.props} /></ProtectedRoute>} />
-                  )
-                }
-                else {
-                  return (
-                    <Route key={item.path} path={item.path} element={<item.component {...item.props} />} />
-                  )
-                }
+                  if (item.isProtected) {
+                    return (
+                      <Route key={item.path} path={item.path}
+                        element={<ProtectedRoute><item.component {...item.props} /></ProtectedRoute>} />
+                    )
+                  }
+                  else {
+                    return (
+                      <Route key={item.path} path={item.path} element={<item.component {...item.props} />} />
+                    )
+                  }
 
 
-              })}
+                })}
 
-            </Routes>
+              </Routes>
+            </Suspense>
           </AppErrorBoundary>
         </main>
       </div>

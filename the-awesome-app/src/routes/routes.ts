@@ -1,14 +1,22 @@
+import React from "react";
 import Counter from "../components/Counter";
 import EditProduct from "../components/EditProduct";
 import FnCounter from "../components/FnCounter";
-import GadgetStore from "../components/GadgetStore";
+
 import Hello from "../components/Hello";
 import HelloWithErrors from "../components/HelloWithErrors";
+import ListCustomers from "../components/ListCustomers";
 import ListProducts from "../components/ListProducts";
 import Login from "../components/Login";
 import RxjsGadgetStore from "../components/RxjsGadgetStore";
 import RxjsViewCart from "../components/RxjsViewCart";
 import ViewCart from "../components/ViewCart";
+
+//static import
+//import GadgetStore from "../components/GadgetStore";
+
+//dynamic import
+const GadgetStore = React.lazy(() => import('../components/GadgetStore'));
 
 type Route = {
     path: string;
@@ -97,6 +105,13 @@ export const appRoutes: Route[] = [
         path: "/helloerror",
         component: HelloWithErrors,
         title: "Error Boundary",
+        isInMainMenu: true,
+        isProtected: false
+    },
+    {
+        path: "/customers",
+        component: ListCustomers,
+        title: "Customers",
         isInMainMenu: true,
         isProtected: false
     }
