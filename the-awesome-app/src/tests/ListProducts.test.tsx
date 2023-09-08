@@ -24,9 +24,11 @@ it("render ListProducts", async () => {
         expect(screen.getByText("List Products")).toBeTruthy();
         expect(screen.getAllByTestId("product")).toHaveLength(3);
 
-        //const allProducts = screen.getAllByTestId("product");
-
+        const allProducts = screen.getAllByTestId("product");
+        expect(allProducts).toHaveLength(3);
+        
         let allDeleteBtns = screen.getAllByText("Delete");
+        expect(allDeleteBtns).toHaveLength(3);
         await waitFor(() =>  fireEvent.click(allDeleteBtns[0], {}));
         //await waitForElementToBeRemoved(allProducts[0]);
         expect(screen.getAllByTestId("product")).toHaveLength(2);
@@ -34,9 +36,12 @@ it("render ListProducts", async () => {
 
     
     });
+
     
     
-    //await waitFor(() => expect(screen.getAllByTestId("product")).toHaveLength(7));
+    
+    
+  
 
 
 
