@@ -49,7 +49,7 @@ function ListProducts() {
         try {
             const url = process.env.REACT_APP_BASE_URL + "/secure_products/" + item.id //"http://localhost:9000/products/" + item.id;
             await axios.delete(url);
-            fetchProducts();
+           // fetchProducts();
            // alert("Record deleted");
            setMessage(`Record with Id: ${item.id} was deleted`);
            setSeverity("success");
@@ -84,7 +84,7 @@ function ListProducts() {
                 {products.map((item, index) => {
                     return (
                         // <ProductView product={index} onRemove={remove} onEdit={edit}/>
-                        <div key={index} className="product">
+                        <div key={index} className="product" data-testid="product">
                             <p>Id: {item.id}</p>
                             <p>{item.name}</p>
                             <p>{item.description}</p>
