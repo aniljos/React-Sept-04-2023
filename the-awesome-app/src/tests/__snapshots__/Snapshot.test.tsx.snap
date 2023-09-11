@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyComponent snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h4>
+      Fn Counter: 8
+    </h4>
+    <p>
+      This is a functional component with hooks
+    </p>
+    <div>
+      <button>
+        Inc
+      </button>
+        
+      <button>
+        Decr
+      </button>
+    </div>
+    <div>
+      Counter: 
+      <input
+        placeholder="Counter"
+        type="number"
+        value="8"
+      />
+    </div>
+    <div>
+      Update Counter: 
+      <input
+        placeholder="Enter a value"
+        type="number"
+      />
+       
+      <button>
+        Update
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

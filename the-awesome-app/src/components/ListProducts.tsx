@@ -49,13 +49,13 @@ function ListProducts() {
         try {
             const url = process.env.REACT_APP_BASE_URL + "/secure_products/" + item.id //"http://localhost:9000/products/" + item.id;
             await axios.delete(url);
-           // fetchProducts();
+           fetchProducts();
            // alert("Record deleted");
            setMessage(`Record with Id: ${item.id} was deleted`);
            setSeverity("success");
-        //    setTimeout(() => {
-        //     setMessage("")
-        //    }, 3000)
+           setTimeout(() => {
+            setMessage("")
+           }, 3000)
 
         } catch (error) {
             //alert("Failed to delete record");
